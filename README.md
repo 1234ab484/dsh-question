@@ -25,9 +25,11 @@ answer goes back to the model and work continues.
   no pencil icon needed;
 - **Single & multi select** — 26px circular radios for single-select, native checkboxes for multi-select;
 - **Keyboard shortcuts** — `1`–`9` select/toggle, `Enter` runs the primary action (submit / next),
-  `Esc` collapses the card without cancelling the question batch;
-- **Waits for you** — the turn stays paused until you submit; countdown, skip and multi-question paging
-  keep working as usual;
+  `←`/`→` switch between questions of a multi-question batch, `Esc` collapses the card without
+  cancelling the batch;
+- **Multiple questions, switchable** — a batch shows one question at a time; use the visible pager
+  buttons or `←`/`→` to move back and forth, and every answer draft is kept;
+- **Waits for you** — the turn stays paused until you submit; countdown, skip and paging keep working;
 - **Automatic Chinese / English** — the UI string follows the DSH interface language, switching live;
   no manual edit or config.
 
@@ -85,6 +87,7 @@ All other text on the card (question, options, descriptions) comes from the mode
 | --- | --- |
 | `1`–`9` | Select the Nth option (single-select) / toggle it (multi-select) |
 | `Enter` | Run the primary footer action: submit on the last question, next otherwise |
+| `←` / `→` (or `PageUp` / `PageDown`) | Switch to the previous / next question in the same batch |
 | `Esc` | Collapse the card (same as the header collapse button; never cancels the batch) |
 
 Shortcuts only act while a question card is visible, never while focus is inside `input`,

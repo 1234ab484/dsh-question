@@ -21,6 +21,23 @@
       return card.querySelectorAll('button[role="radio"], button[role="checkbox"]');
     }
 
+    /** Pager buttons in order: [previous, next]; empty when the batch has one question. */
+    function pagerButtonsOf(card) {
+      var pager = card.querySelector('[class*="_pager"]');
+      if (pager === null) return [];
+      return pager.querySelectorAll("button");
+    }
+
+    /** Move one question backward (-1) or forward (1) through the card's own pager. */
+    function stepQuestion(card, delta) {
+      var buttons = pagerButtonsOf(card);
+      if (buttons.length === 0) return false;
+      var button = delta < 0 ? buttons[0] : buttons[buttons.length - 1];
+      if (button.disabled) return false;
+      button.click();
+      return true;
+    }
+
     /** The primary footer action (submit / next). Last button inside the action group. */
     function primaryActionOf(card) {
       var group = card.querySelector('[class*="_footerActions"]');
@@ -66,6 +83,20 @@
         var key = event.key;
         if (key !== null && key.length === 1 && key >= "1" && key <= "9") {
           if (clickOption(card, key.charCodeAt(0) - 49)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          return;
+        }
+        if (key === "ArrowLeft" || key === "PageUp") {
+          if (stepQuestion(card, -1)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          return;
+        }
+        if (key === "ArrowRight" || key === "PageDown") {
+          if (stepQuestion(card, 1)) {
             event.preventDefault();
             event.stopPropagation();
           }

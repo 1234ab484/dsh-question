@@ -1,6 +1,6 @@
 {
   "name": "dsh-question",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Ask-and-wait question cards for DeepSeek Harness: key-point options, hover details, free-form answers, keyboard shortcuts, automatic Chinese/English.",
   "keywords": [
     "dsh",

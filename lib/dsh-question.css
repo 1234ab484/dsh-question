@@ -120,3 +120,35 @@
 .dsh-tq-tip .dsh-tq-tip__body {
   color: var(--dsw-alias-label-secondary, #b9b9b9);
 }
+
+/* ⑥ 问题导航：让「上一题 / 下一题」在卡片里明确可点，多题批次来回切换不靠猜。 */
+[data-question-key] [class*="_pager"] {
+  gap: 8px;
+}
+
+[data-question-key] [class*="_pager"] button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--dsw-alias-border-l2, rgba(255, 255, 255, 0.16));
+  border-radius: 999px;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary, #9d9d9d);
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+}
+
+[data-question-key] [class*="_pager"] button:hover:not(:disabled) {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(255, 255, 255, 0.07));
+  border-color: var(--dsw-alias-border-l4, rgba(255, 255, 255, 0.2));
+  color: var(--dsw-alias-label-primary, #e8e8e8);
+}
+
+[data-question-key] [class*="_pager"] button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+[data-question-key] [class*="_progress"] {
+  color: var(--dsw-alias-label-secondary, #9d9d9d);
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}

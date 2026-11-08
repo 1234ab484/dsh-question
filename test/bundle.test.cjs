@@ -36,6 +36,8 @@ test("client half keeps the documented keyboard shortcuts", () => {
   assert.ok(bundle.includes("clickOption"), "digit shortcuts click options");
   assert.ok(bundle.includes("primaryActionOf"), "Enter triggers the primary footer action");
   assert.ok(bundle.includes("collapseControlOf"), "Escape collapses the card");
+  assert.ok(bundle.includes("stepQuestion"), "arrow keys switch between questions");
+  assert.ok(css.includes('class*="_pager"'), "pager buttons are styled");
 });
 
 test("language prefix follows the DSH interface language", () => {
