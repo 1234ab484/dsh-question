@@ -1,7 +1,7 @@
 {
   "name": "dsh-question",
-  "version": "0.1.0",
-  "description": "Compact ask_user_question cards for DeepSeek Harness: options show only the key point, hovering reveals the full explanation, and free-form answers render as “Other:”.",
+  "version": "0.1.1",
+  "description": "Ask-and-wait question cards for DeepSeek Harness: key-point options, hover details, free-form answers, keyboard shortcuts, automatic Chinese/English.",
   "keywords": [
     "dsh",
     "dsh-plugin",

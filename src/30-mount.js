@@ -19,6 +19,24 @@
 
       var mountRoot = document.body || document.documentElement;
       mountRoot.appendChild(tip);
+
+      function syncOtherPrefix() {
+        try {
+          document.documentElement.style.setProperty("--dsh-question-other-prefix", JSON.stringify(otherPrefix()));
+        } catch (error) {
+          /* non-browser environments: the CSS fallback still applies */
+        }
+      }
+      syncOtherPrefix();
+      var languageObserver = null;
+      if (typeof MutationObserver === "function") {
+        languageObserver = new MutationObserver(syncOtherPrefix);
+        languageObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+      }
+      disposers.push(function () {
+        if (languageObserver !== null) languageObserver.disconnect();
+        document.documentElement.style.removeProperty("--dsh-question-other-prefix");
+      });
       disposers.push(function () {
         if (tip.parentNode !== null) tip.parentNode.removeChild(tip);
       });

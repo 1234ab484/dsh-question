@@ -38,6 +38,13 @@ test("client half keeps the documented keyboard shortcuts", () => {
   assert.ok(bundle.includes("collapseControlOf"), "Escape collapses the card");
 });
 
+test("language prefix follows the DSH interface language", () => {
+  assert.ok(bundle.includes("otherPrefix"), "locale detection present");
+  assert.ok(bundle.includes('"Other: "'), "English prefix present");
+  assert.ok(bundle.includes("--dsh-question-other-prefix"), "CSS variable wired");
+  assert.ok(css.includes("var(--dsh-question-other-prefix"), "custom-row prefix uses the variable");
+});
+
 test("bundle patch inserts the loader entry", () => {
   assert.match(patch, /- insert:/);
   assert.ok(patch.includes("name: " + pkg.name));

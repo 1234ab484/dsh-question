@@ -69,7 +69,7 @@
 
 /* ⑤ 「其他：」替掉铅笔/序号图标。 */
 [data-question-key] [class*="_customRow"]::before {
-  content: "\5176\4ED6\FF1A";
+  content: var(--dsh-question-other-prefix, "\5176\4ED6\FF1A");
   flex: 0 0 auto;
   color: var(--dsw-alias-label-secondary, #9a9a9a);
   font-size: 14px;

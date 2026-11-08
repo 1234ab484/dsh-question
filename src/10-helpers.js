@@ -30,6 +30,27 @@
       return (el && el.textContent ? String(el.textContent) : "").replace(/\s+/g, " ").trim();
     }
 
+    /**
+     * The “other answer” prefix in the active UI language. DSH keeps <html lang> in
+     * sync with the locale service, so the plugin follows the GUI without config.
+     */
+    function otherPrefix() {
+      var language = "";
+      try {
+        language = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+      } catch (error) {
+        language = "";
+      }
+      if (language === "") {
+        try {
+          language = (navigator.language || "").toLowerCase();
+        } catch (error) {
+          language = "";
+        }
+      }
+      return language.indexOf("zh") === 0 ? "\u5176\u4ed6\uff1a" : "Other: ";
+    }
+
     function closestOption(node) {
       var el = node && node.nodeType === 3 ? node.parentElement : node;
       if (!el || typeof el.closest !== "function") return null;
