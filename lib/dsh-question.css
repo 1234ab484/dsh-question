@@ -1,0 +1,122 @@
+/* dsh-question — 悬停式提问卡片（样式层）
+ *
+ * 作用域：只命中 ask_user_question 的提问卡片——它的外层 .frame 带 data-question-key，
+ * 这是 DSH 客户端的稳定语义钩子；其余界面（如 plan-review 卡片）不受影响。
+ *
+ * 设计：
+ *  1. 选项行里原本内联的 description 收进悬停浮窗，行内只留「重点」（label）；
+ *  2. label 最多两行，超出省略——完整内容在浮窗里看；
+ *  3. 自定义答案行以「其他：」开头（替掉铅笔图标），让自由输入一眼可见；
+ *  4. 带详细说明的选项右上角显示一个 ⓘ 提示可悬停。
+ */
+
+/* ① 行内详细说明不再占位：文本仍留在 DOM 里，由 client.js 的浮窗读取。 */
+[data-question-key] button[role="radio"] [class*="_description"],
+[data-question-key] button[role="checkbox"] [class*="_description"] {
+  display: none !important;
+}
+
+/* ② 选项重点最多两行，超出用省略号。 */
+[data-question-key] button[role="radio"] [class*="_optionLabel"],
+[data-question-key] button[role="checkbox"] [class*="_optionLabel"] {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+}
+
+/* ③ 悬停提示的可视暗示：有详细说明的选项在行尾显示 ⓘ。 */
+[data-question-key] button[role="radio"]:has([class*="_description"])::after,
+[data-question-key] button[role="checkbox"]:has([class*="_description"])::after {
+  content: "\24D8";
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding-left: 8px;
+  color: var(--dsw-alias-label-tertiary, #8a8a8a);
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+/* ④ 单选：序号圆片改成圆形单选框（未选=空心圆环，选中=实心圆）。 */
+[data-question-key] button[role="radio"] > [class*="_number"] {
+  box-sizing: border-box;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  margin-top: -1px;
+  border-radius: 50%;
+  corner-shape: round;
+  border: 2px solid var(--dsw-alias-border-l4, rgba(255, 255, 255, 0.3));
+  background: transparent;
+  color: var(--dsw-alias-label-secondary, #9a9a9a);
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 500;
+  display: grid;
+  place-items: center;
+}
+
+[data-question-key] button[role="radio"][aria-checked="true"] > [class*="_number"] {
+  border-color: var(--dsw-alias-state-business-primary, #4f8cff);
+  background: var(--dsw-alias-state-business-primary, #4f8cff);
+  color: var(--dsw-alias-label-primary-foreground, #111);
+}
+
+/* ⑤ 「其他：」替掉铅笔/序号图标。 */
+[data-question-key] [class*="_customRow"]::before {
+  content: "\5176\4ED6\FF1A";
+  flex: 0 0 auto;
+  color: var(--dsw-alias-label-secondary, #9a9a9a);
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+[data-question-key] [class*="_customRow"] > [class*="_number"],
+[data-question-key] [class*="_customRow"] > [class*="_checkbox"] {
+  display: none !important;
+}
+
+/* ⑤ 浮窗：由 client.js 定位到选项行旁边。 */
+.dsh-tq-tip {
+  position: fixed;
+  z-index: 2147483000;
+  box-sizing: border-box;
+  max-width: min(392px, calc(100vw - 24px));
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--dsw-alias-border-l2-darkmode-thin, var(--dsw-alias-border-l2, rgba(255, 255, 255, 0.12)));
+  background: var(--dsw-alias-bg-module-platform, #353638);
+  color: var(--dsw-alias-label-primary, #ededed);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42), 0 2px 8px rgba(0, 0, 0, 0.28);
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.dsh-tq-tip[data-show="1"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dsh-tq-tip .dsh-tq-tip__title {
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: var(--dsw-alias-label-primary, #ededed);
+}
+
+.dsh-tq-tip .dsh-tq-tip__body {
+  color: var(--dsw-alias-label-secondary, #b9b9b9);
+}

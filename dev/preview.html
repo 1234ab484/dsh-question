@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>dsh-question preview</title>
+<!--
+  Standalone replica of the ask_user_question card DOM, for iterating on
+  lib/dsh-question.css without running DSH. The base styles below only exist in
+  DSH itself; this page re-creates just enough of them.
+-->
+<style>
+  :root {
+    --dsw-alias-label-primary: #e8e8e8;
+    --dsw-alias-label-secondary: #9d9d9d;
+    --dsw-alias-label-tertiary: #7b7b7b;
+    --dsw-alias-label-caption: #6a6a6a;
+    --dsw-alias-label-primary-foreground: #111;
+    --dsw-alias-bg-overlay: #3a3a3a;
+    --dsw-alias-bg-module-platform: #232323;
+    --dsw-specific-input-major: #212121;
+    --dsw-alias-interactive-bg-hover: rgba(255, 255, 255, 0.07);
+    --dsw-alias-border-l2: rgba(255, 255, 255, 0.16);
+    --dsw-alias-border-l2-darkmode-thin: rgba(255, 255, 255, 0.1);
+    --dsw-alias-border-l4: rgba(255, 255, 255, 0.2);
+    --dsw-alias-state-business-primary: #7fb0ff;
+    --dsw-alias-button-info-fill: #7fb0ff;
+    --dsw-alias-specific-sidebar-nav-item-active-accent: rgba(255, 255, 255, 0.1);
+    --dsw-radius-xl: 16px;
+    --dsw-radius-md: 8px;
+    --dsw-radius-xs: 4px;
+    --dsh-chat-content-width: 720px;
+  }
+  body { margin: 0; background: #161616; color: #e8e8e8; font: 14px/1.5 "Microsoft YaHei UI", system-ui, sans-serif; }
+  .page { padding: 32px; display: flex; justify-content: center; }
+
+  /* minimal stand-ins for the DSH question-composer classes */
+  .wnLwla_card { width: 100%; max-width: var(--dsh-chat-content-width); display: flex; flex-direction: column;
+    border-radius: var(--dsw-radius-xl); background: var(--dsw-specific-input-major); color: var(--dsw-alias-label-primary); }
+  .wnLwla_header { display: flex; justify-content: space-between; padding: 20px 16px 0 24px; }
+  .wnLwla_eyebrow { color: var(--dsw-alias-label-tertiary); font-size: 11px; margin-bottom: 4px; }
+  .wnLwla_title { margin: 0; font-size: 16px; font-weight: 500; }
+  .wnLwla_body { display: flex; flex-direction: column; }
+  .wnLwla_options { display: flex; flex-direction: column; gap: 1px; padding: 4px 12px; margin-top: 8px; }
+  .wnLwla_option { display: flex; align-items: flex-start; gap: 8px; width: 100%; min-height: 40px;
+    padding: 8px 12px 8px 8px; border-radius: var(--dsw-radius-md); border: 1px solid transparent;
+    background: none; color: inherit; text-align: left; cursor: pointer; }
+  .wnLwla_option:hover { background: var(--dsw-alias-interactive-bg-hover); }
+  .wnLwla_number { display: grid; place-items: center; width: 20px; height: 20px; flex: 0 0 20px;
+    margin-top: 2px; border-radius: var(--dsw-radius-xs); background: var(--dsw-alias-bg-overlay);
+    color: var(--dsw-alias-label-secondary); font-size: 11px; }
+  .wnLwla_checkbox { width: 20px; height: 20px; flex: 0 0 20px; margin-top: 2px; display: grid; place-items: center; }
+  .wnLwla_checkbox::before { content: ""; width: 14px; height: 14px; border: 1px solid var(--dsw-alias-border-l4); border-radius: var(--dsw-radius-xs); }
+  .wnLwla_optionCopy { flex: 1; min-width: 0; }
+  .wnLwla_optionLine { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; }
+  .wnLwla_optionLabel { font-size: 14px; font-weight: 500; line-height: 24px; }
+  .wnLwla_description { color: var(--dsw-alias-label-tertiary); font-size: 14px; line-height: 24px; }
+  .wnLwla_badge { padding: 0 4px; border-radius: var(--dsw-radius-xs); font-size: 11px; font-weight: 600;
+    background: rgba(255, 255, 255, 0.1); color: var(--dsw-alias-button-info-fill); }
+  .wnLwla_customRow { display: flex; align-items: flex-start; gap: 8px; min-height: 40px; padding: 8px 12px 8px 8px;
+    border: 1px solid transparent; border-radius: var(--dsw-radius-md); }
+  .wnLwla_customRow:focus-within { border-color: var(--dsw-alias-border-l2); background: var(--dsw-alias-interactive-bg-hover); }
+  .wnLwla_field { flex: 1; min-width: 0; }
+  .wnLwla_fieldInput { width: 100%; resize: none; border: 0; outline: 0; background: none; color: inherit;
+    font: inherit; line-height: 24px; }
+  .wnLwla_footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 10px 10px 18px; }
+  .wnLwla_progress { color: var(--dsw-alias-label-secondary); font-size: 14px; }
+</style>
+<link rel="stylesheet" href="../lib/dsh-question.css" />
+</head>
+<body>
+<div class="page">
+  <div data-question-key="preview-1">
+    <section class="wnLwla_card">
+      <header class="wnLwla_header">
+        <div class="wnLwla_headingBlock">
+          <div class="wnLwla_eyebrow">选择存储方案</div>
+          <h2 class="wnLwla_title">这个项目的数据要存在哪里？</h2>
+        </div>
+      </header>
+      <div class="wnLwla_body">
+        <div class="wnLwla_options" role="radiogroup">
+          <button type="button" class="wnLwla_option" role="radio" aria-checked="false">
+            <span class="wnLwla_number">1</span>
+            <span class="wnLwla_optionCopy"><span class="wnLwla_optionLine">
+              <span class="wnLwla_optionLabel">SQLite 本地文件，零依赖开箱即用，但多进程并发写入需要自己做锁，数据量超过几 GB 后索引维护也会变慢</span>
+              <span class="wnLwla_description">适合单机桌面应用：不需要额外服务，数据就在本地文件里；缺点是并发写要用 WAL + 重试，跨机器共享不可行。</span>
+            </span></span>
+          </button>
+          <button type="button" class="wnLwla_option" role="radio" aria-checked="true">
+            <span class="wnLwla_number">2</span>
+            <span class="wnLwla_optionCopy"><span class="wnLwla_optionLine">
+              <span class="wnLwla_optionLabel">PostgreSQL 服务端数据库</span>
+              <span class="wnLwla_badge">推荐</span>
+              <span class="wnLwla_description">团队协作、需要事务与复杂查询时最稳；要额外跑一个服务，部署成本略高。</span>
+            </span></span>
+          </button>
+          <button type="button" class="wnLwla_option" role="radio" aria-checked="false">
+            <span class="wnLwla_number">3</span>
+            <span class="wnLwla_optionCopy"><span class="wnLwla_optionLine">
+              <span class="wnLwla_optionLabel">直接用 JSON 文件存</span>
+            </span></span>
+          </button>
+          <div class="wnLwla_customRow">
+            <span class="wnLwla_number" aria-hidden="true">✎</span>
+            <div class="wnLwla_field"><textarea class="wnLwla_fieldInput" rows="1" placeholder="输入你的答案"></textarea></div>
+          </div>
+        </div>
+      </div>
+      <footer class="wnLwla_footer"><span class="wnLwla_progress">1 / 1</span></footer>
+    </section>
+  </div>
+</div>
+<script>
+  window.__ModuleLoader__ = { load: function (row) { window.__row = row; } };
+</script>
+<script src="../lib/client.js"></script>
+<script>
+  var mod = window.__row.factory(function (id) { throw new Error("preview has no module: " + id); });
+  mod.apply({});
+</script>
+</body>
+</html>

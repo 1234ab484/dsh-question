@@ -1,0 +1,7 @@
+# 把本插件作为一条 Loader 条目插入 profile 的组合树。
+# id 是插件在 Loader 中的稳定身份（改名会让 profile 里的旧条目失效，需要重装）；
+# name 是包名，profile 的 node_modules 里必须能解析到。
+- insert:
+    - id: question-card
+      name: dsh-question
+      config: {}

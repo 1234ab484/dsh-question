@@ -1,0 +1,58 @@
+{
+  "name": "dsh-question",
+  "version": "0.1.0",
+  "description": "Compact ask_user_question cards for DeepSeek Harness: options show only the key point, hovering reveals the full explanation, and free-form answers render as “Other:”.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "ask-user-question",
+    "client-plugin",
+    "ui"
+  ],
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "scripts/",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "docs/"
+  ],
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "check": "node --check lib/client.js && node --check lib/index.js",
+    "test": "node --test",
+    "prepublishOnly": "npm run build && npm run check && npm test"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "1234ab484",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1234ab484/dsh-question.git"
+  },
+  "homepage": "https://github.com/1234ab484/dsh-question#readme",
+  "bugs": {
+    "url": "https://github.com/1234ab484/dsh-question/issues"
+  }
+}
